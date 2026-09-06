@@ -1,0 +1,76 @@
+Xyvonix Core v3.0 — RonzX7 Developer
+
+BASE / WEBUI
+- Original Xyvonix Core hero layout: logo image sized with object-fit:contain
+  so it never gets cropped, real HTML/CSS wordmark instead of baked-in image text
+- Full icon set replaced with hand-authored inline SVG (no emoji anywhere in the UI)
+- AxManager WebUI bridge support, with a request timeout so a stuck bridge
+  call always surfaces an error instead of leaving a button hanging forever
+- Live latency graph, animated speed-test ring
+- Home / Network / Tuning / Gaming / About tabs
+- Custom DNS inline input
+- Runtime device diagnostics
+
+PERFORMANCE
+- Performance / Balanced / Battery profiles
+- Adaptive CPU governor selection
+- Adaptive GPU devfreq governor selection
+- Android animation scale tuning
+- Activity Manager compaction/process-start hints
+- Memory, cache and storage maintenance
+
+NETWORK
+- Private DNS: Automatic / Off / Google / Cloudflare / Quad9 / AdGuard / Custom
+  (v3.0 fix: preset/custom DNS choices no longer revert to Automatic — see CHANGELOG)
+- Network optimization profile
+- Android Wi-Fi low-latency mode when exposed by the host
+- Live latency measurement
+- Cloudflare download speed test with animated progress
+
+GRAPHICS
+- SurfaceFlinger / HWUI / RenderEngine performance hints
+- Advanced background-blur capability hint
+- Highest display refresh mode selection
+
+GAMING
+- Installed package discovery and per-game list management
+- Live foreground-app detection (no root; dumpsys-based)
+- Auto Game Mode: switches to Performance the moment a tracked game is
+  detected in the foreground, restores your previous profile when it exits
+- Games are auto-added to the Doze/App-Standby whitelist so they keep
+  running smoothly in the background
+- ART speed / speed-profile compilation
+- AxManager optimizeApp integration when available
+- One-tap Gaming profile using Xyvonix Performance mode
+
+BACKGROUND APP MANAGER
+- One-tap "Close background apps": force-stops backgrounded third-party
+  apps that aren't the current app, a tracked game, or on your keep-alive list
+- Keep-alive list so specific apps (messaging, music, etc.) are never touched
+
+DIAGNOSTICS
+- Model, brand, manufacturer, HyperOS version, Android API, SoC, RAM
+- Battery level and temperature, thermal status, free storage
+- Designed for AxManager non-root execution
+- Redmi/Xiaomi/POCO and Android 14-16 are the primary target family
+
+SAFETY
+- Thermal protection is not disabled
+- SELinux is not bypassed
+- No KernelSU/Magisk/APatch installer paths
+- No opaque root-only binary payloads
+- Unsupported controls are skipped instead of forcing protected kernel nodes
+
+CHANGELOG (v2.1 -> v3.0)
+- Fixed: DNS (and game/package) commands embedded quoted arguments in the
+  exec string; AxManager's bridge tokenizes on whitespace only and does not
+  strip quotes, so the literal quote characters were failing the CLI's own
+  hostname/package validation and silently no-op'ing the change. Arguments
+  are now sent unquoted (they are already validated to be space-free), and
+  the CLI also strips stray quote characters defensively.
+- Added: background app manager, game auto-detection + Auto Game Mode,
+  Doze whitelist integration for tracked games, thermal/temperature/storage
+  diagnostics.
+- Replaced: every emoji/dingbat icon with a hand-authored inline SVG set.
+- Redesigned: hero banner to use the new logo at its native aspect ratio,
+  eliminating the cropped "PERFORMANCE / NETWORK" row seen in v2.1.

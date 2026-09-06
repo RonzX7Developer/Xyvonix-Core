@@ -1,0 +1,168 @@
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:#07080c;color:#eef0f4;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+body{min-height:100vh}
+button,input{font:inherit}
+.app{max-width:520px;margin:auto;min-height:100vh;background:linear-gradient(180deg,#090b10 0,#07080c 45%,#07080c 100%)}
+
+/* ---------- icons (all SVG, no emoji) ---------- */
+.icon{display:inline-flex;align-items:center;justify-content:center;line-height:0}
+.icon svg{display:block;width:1em;height:1em}
+
+/* ---------- top bar ---------- */
+.topbar{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:14px 16px;background:rgba(7,8,12,.86);backdrop-filter:blur(18px);border-bottom:1px solid rgba(255,255,255,.07)}
+.brand{display:flex;align-items:center;gap:10px}
+.brand-logo{width:36px;height:36px;border-radius:10px;object-fit:cover;border:1px solid rgba(255,255,255,.12)}
+.brand-name{font-weight:800;letter-spacing:-.3px}
+.brand-sub,.muted,.hint,small{color:#7d8492;font-size:10px}
+.status-pill,.badge{display:inline-flex;align-items:center;justify-content:center;border:1px solid #2d333d;border-radius:999px;padding:6px 9px;font-size:9px;font-family:"SFMono-Regular",Consolas,monospace;color:#9da5b3;letter-spacing:.5px}
+.status-pill.active,.badge.active{color:#72f7a5;border-color:rgba(60,240,130,.32);background:rgba(60,240,130,.07)}
+
+.content{padding:16px 14px calc(82px + env(safe-area-inset-bottom))}
+.view{display:none}
+.view.active{display:block}
+
+/* ---------- hero (redesigned: no fixed-height image crop) ---------- */
+.hero{overflow:hidden;border:1px solid #20242c;border-radius:20px;background:linear-gradient(145deg,#11151b,#0c0e13);box-shadow:0 20px 50px rgba(0,0,0,.28)}
+.hero-top{padding:26px 18px 16px;display:flex;flex-direction:column;align-items:center;text-align:center;background:radial-gradient(120% 100% at 50% 0%,rgba(110,244,160,.08),transparent 60%)}
+.hero-logo{width:84px;height:84px;border-radius:20px;object-fit:cover;box-shadow:0 10px 30px rgba(0,0,0,.45),0 0 0 1px rgba(255,255,255,.08);margin-bottom:14px}
+.hero-top .eyebrow{margin-bottom:2px}
+.hero-top h1{margin:7px 0 6px}
+.hero-top p{max-width:340px}
+.hero-tags{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;padding:14px 16px 18px;border-top:1px solid #1b2029}
+.hero-tags .tag{display:inline-flex;align-items:center;gap:6px;font:700 9px "SFMono-Regular",Consolas,monospace;letter-spacing:.4px;color:#9aa3b1;background:#12161c;border:1px solid #232935;border-radius:999px;padding:6px 10px}
+.hero-tags .tag .icon{color:#6ef4a0;font-size:12px}
+.eyebrow{font:700 9px/1.2 "SFMono-Regular",Consolas,monospace;color:#6ef4a0;letter-spacing:1.1px}
+.hero h1,.page-head h1{margin:7px 0 6px;font-size:26px;letter-spacing:-1px}
+.hero p,.page-head p{margin:0;color:#8b93a1;font-size:12px;line-height:1.55}
+
+/* ---------- generic card ---------- */
+.card{margin-top:12px;padding:14px;border-radius:18px;background:linear-gradient(145deg,#11151b,#0d1015);border:1px solid #20242c;box-shadow:0 12px 28px rgba(0,0,0,.16)}
+.telemetry{overflow:hidden}
+.tele-head,.card-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.big-num{font:800 30px/1 "SFMono-Regular",Consolas,monospace;margin:7px 0 2px;letter-spacing:-1px}
+.live{font:700 9px "SFMono-Regular",Consolas,monospace;color:#6ef4a0;display:flex;align-items:center}
+.live i{display:inline-block;width:6px;height:6px;margin-right:5px;border-radius:50%;background:#6ef4a0;box-shadow:0 0 10px #6ef4a0}
+.telemetry canvas{display:block;width:100%;height:90px;margin:8px 0}
+.metric-grid,.device-grid,.test-metrics{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid #1d222a}
+.metric-grid div,.device-grid div,.test-metrics div{padding:10px 7px;border-right:1px solid #1d222a}
+.metric-grid div:last-child,.device-grid div:last-child{border-right:0}
+.metric-grid span,.device-grid span,.test-metrics span{display:block;font:700 8px "SFMono-Regular",Consolas,monospace;color:#727a88;letter-spacing:.6px}
+.metric-grid b,.device-grid b,.test-metrics b{display:block;margin-top:5px;font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.section-title{margin:18px 2px 8px;font:700 9px "SFMono-Regular",Consolas,monospace;letter-spacing:1.1px;color:#7e8694}
+
+/* ---------- engine profile cards ---------- */
+.profile-grid{display:grid;gap:8px}
+.profile-card{position:relative;display:flex;align-items:center;gap:10px;width:100%;padding:11px 12px;border-radius:16px;border:1px solid #20242c;background:linear-gradient(145deg,#11151b,#0d1015);color:#eef0f4;text-align:left;cursor:pointer;overflow:hidden}
+.profile-card .accent-bar{position:absolute;left:0;top:50%;transform:translateY(-50%);width:3px;height:22px;border-radius:0 3px 3px 0;background:#606774}
+.profile-card.active{border-color:rgba(110,244,160,.3);background:linear-gradient(145deg,rgba(110,244,160,.07),#0d1015)}
+.profile-card.active .accent-bar{background:#6ef4a0;height:34px;box-shadow:0 0 14px rgba(110,244,160,.45)}
+.p-icon{width:35px;height:35px;border-radius:11px;display:flex;align-items:center;justify-content:center;background:#171b22;border:1px solid #2b313b;font-size:18px;color:#c7cdd7}
+.profile-card.active .p-icon{color:#6ef4a0}
+.p-info{flex:1}
+.p-info b{display:block;font-size:12px}
+.p-info small{display:block;margin-top:2px}
+.profile-card em{font-style:normal;font:700 8px "SFMono-Regular",Consolas,monospace;color:#6ef4a0;padding:5px 7px;border:1px solid rgba(110,244,160,.24);border-radius:999px}
+
+/* ---------- quick control tools ---------- */
+.card h2{margin:3px 0 0;font-size:16px;letter-spacing:-.3px}
+.ghost{background:#151a21;border:1px solid #2b313b;color:#b5bcc8;border-radius:10px;padding:8px 10px;font-size:11px}
+.tool-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+.tool{border:1px solid #252b34;border-radius:13px;background:#151a21;color:#eef0f4;padding:12px;text-align:left}
+.tool span{font-size:18px;color:#c7cdd7}
+.tool b{display:block;margin-top:4px;font-size:12px}
+.tool small{display:block;margin-top:2px}
+.tool.primary{border-color:rgba(110,244,160,.28);background:rgba(110,244,160,.08)}
+.tool.primary span{color:#6ef4a0}
+.tool.danger-tool{border-color:rgba(255,138,120,.28);background:rgba(255,110,90,.07)}
+.tool.danger-tool span{color:#ff9c86}
+
+.page-head{padding:5px 2px 7px}
+.page-head.center{text-align:center}
+
+/* ---------- DNS ---------- */
+.dns-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+.dns-card{border:1px solid #252b34;border-radius:14px;background:#14181f;color:#eef0f4;padding:12px;text-align:left;position:relative}
+.dns-card.active{border-color:rgba(110,244,160,.32);background:rgba(110,244,160,.07)}
+.dns-check{display:none;position:absolute;right:8px;top:9px;width:13px;height:13px;color:#6ef4a0}
+.dns-card.active .dns-check{display:block}
+.dns-card b{display:block;font-size:11px}
+.dns-card small{display:block;margin-top:3px;font:8px "SFMono-Regular",Consolas,monospace}
+.custom-dns{display:flex;gap:8px;margin-top:9px}
+.custom-dns input{flex:1;min-width:0;background:#0b0e13;border:1px solid #252b34;color:#eef0f4;border-radius:12px;padding:11px 12px;outline:none;font-size:11px}
+.primary-btn,.danger{border:0;border-radius:12px;background:#6ef4a0;color:#071009;font-weight:800;padding:11px 14px;font-size:11px;display:inline-flex;align-items:center;justify-content:center;gap:6px}
+.primary-btn.full,.danger.full{width:100%;margin-top:10px}
+
+/* ---------- speed test ---------- */
+.speed-ring{width:150px;height:150px;border-radius:50%;margin:16px auto 13px;display:grid;place-items:center;background:conic-gradient(#6ef4a0 0deg,#6ef4a0 var(--deg,0deg),#1c232b var(--deg,0deg),#1c232b 360deg);position:relative}
+.speed-ring:before{content:"";position:absolute;inset:8px;border-radius:50%;background:#0f1318;border:1px solid #242a33}
+.speed-ring>div{position:relative;text-align:center}
+.speed-ring strong{display:block;font:800 26px "SFMono-Regular",Consolas,monospace}
+.speed-ring span{color:#7d8492;font-size:9px}
+.test-metrics{grid-template-columns:repeat(3,1fr)}
+.test-metrics div{text-align:center}
+.test-metrics b{font-size:16px}
+.test-metrics small{font-size:9px}
+.hint{margin:9px 1px 0;line-height:1.5}
+
+/* ---------- toggles / settings rows ---------- */
+.setting{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 0;border-bottom:1px solid #1d222a}
+.setting:last-child{border-bottom:0}
+.setting b{display:block;font-size:12px}
+.setting small{display:block;margin-top:3px;line-height:1.45}
+.mini-icon{font-size:20px;color:#6ef4a0;flex:0 0 auto}
+.toggle{width:46px;height:26px;border-radius:99px;border:1px solid #2b313b;background:#171b22;position:relative;flex:0 0 auto}
+.toggle:after{content:"";position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#6e7581;transition:.2s}
+.toggle.on{border-color:rgba(110,244,160,.32);background:rgba(110,244,160,.13)}
+.toggle.on:after{transform:translateX(20px);background:#6ef4a0;box-shadow:0 0 12px rgba(110,244,160,.4)}
+
+/* ---------- device compatibility ---------- */
+.device-grid{grid-template-columns:1fr 1fr;margin-top:10px;border:1px solid #1d222a;border-radius:12px;overflow:hidden}
+.device-grid div{min-height:54px}
+.device-grid b{white-space:normal;line-height:1.35}
+
+/* ---------- safety ---------- */
+.safety{display:flex;gap:10px;align-items:flex-start}
+.safety .shield{font-size:20px;color:#6ef4a0;flex:0 0 auto;margin-top:1px}
+.safety p,.about p{margin:5px 0 0;color:#8b93a1;font-size:10px;line-height:1.55}
+
+/* ---------- game / ignore list rows ---------- */
+.game-list{margin-top:10px}
+.game-row{display:flex;align-items:center;gap:8px;padding:9px 0;border-bottom:1px solid #1d222a}
+.game-row:last-child{border-bottom:0}
+.game-name{flex:1;min-width:0}
+.game-name b{display:block;font-size:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.game-name small{display:block;margin-top:2px}
+.mini{background:#151a21;color:#b9c0cc;border:1px solid #2b313b;border-radius:9px;padding:7px;font-size:9px;display:inline-flex;align-items:center}
+.mini .icon{font-size:11px}
+.profile-note{margin-top:10px;padding:12px;border-radius:12px;background:#14181f;border:1px solid #252b34}
+.profile-note b{display:block;font-size:11px}
+.profile-note span{display:block;color:#828a98;font-size:10px;margin-top:3px;line-height:1.45}
+
+/* ---------- about ---------- */
+.about{display:flex;flex-direction:column;align-items:center;text-align:center;padding:20px 16px}
+.avatar-ring{width:92px;height:92px;padding:3px;border-radius:50%;background:conic-gradient(#6ef4a0,#284a37,#6ef4a0);box-shadow:0 0 32px rgba(110,244,160,.16);animation:spin 7s linear infinite}
+.avatar-ring img{width:100%;height:100%;object-fit:cover;border-radius:50%;background:#11151b;animation:spin 7s linear infinite reverse}
+.about h2{margin:14px 0 6px;font-size:19px}
+.about p{max-width:300px;margin-top:14px}
+.links{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;width:100%;margin-top:15px}
+.links a{padding:9px 7px;border-radius:10px;border:1px solid #252b34;background:#151a21;color:#dbe0e8;text-decoration:none;font-size:9px;text-align:center}
+.danger{background:#2a1519;color:#ffadb4;border:1px solid rgba(255,105,120,.28)}
+
+/* ---------- tab bar ---------- */
+.tabbar{position:fixed;z-index:60;left:50%;bottom:0;transform:translateX(-50%);width:min(520px,100%);height:calc(67px + env(safe-area-inset-bottom));padding-bottom:env(safe-area-inset-bottom);display:grid;grid-template-columns:repeat(5,1fr);background:rgba(8,10,14,.93);backdrop-filter:blur(18px);border-top:1px solid #20242c}
+.tab{border:0;background:transparent;color:#6f7784;font-size:19px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px}
+.tab small{font-size:8px;color:inherit}
+.tab.active{color:#6ef4a0}
+.tab.active small{color:#9aab9f}
+.tab.active .icon{transform:translateY(-1px)}
+
+#toast{position:fixed;z-index:100;left:50%;bottom:84px;transform:translate(-50%,16px);opacity:0;background:#151a21;border:1px solid #2b313b;color:#eef0f4;padding:10px 14px;border-radius:999px;font:700 10px "SFMono-Regular",Consolas,monospace;pointer-events:none;transition:.22s;white-space:nowrap;max-width:88vw;overflow:hidden;text-overflow:ellipsis}
+#toast.show{opacity:1;transform:translate(-50%,0)}
+
+@keyframes spin{to{transform:rotate(360deg)}}
+
+@media(max-width:380px){
+  .hero h1,.page-head h1{font-size:23px}
+  .metric-grid b{font-size:10px}
+  .links a{font-size:8px}
+}

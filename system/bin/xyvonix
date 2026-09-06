@@ -1,0 +1,28 @@
+#!/system/bin/sh
+# Resolves the real Xyvonix Core CLI script regardless of where AxManager
+# extracted this non-root plugin to. Tries the env var AxManager is expected
+# to set for a plugin's own exec calls first, then a widening set of known
+# AxManager/Axeron plugin-storage layouts, then a last-resort glob scan.
+if [ -n "$AXERON_PLUGIN_PATH" ] && [ -x "$AXERON_PLUGIN_PATH/bin/xyvonix_cli.sh" ]; then
+  exec "$AXERON_PLUGIN_PATH/bin/xyvonix_cli.sh" "$@"
+fi
+
+for root in \
+  "/data/user_de/0/com.android.shell/axeron/plugins/xyvonix_core" \
+  "/data/user/0/com.android.shell/axeron/plugins/xyvonix_core" \
+  "/data/data/com.android.shell/axeron/plugins/xyvonix_core" \
+  "/data/user_de/0/frb.axeron.manager/axeron/plugins/xyvonix_core" \
+  "/data/user/0/frb.axeron.manager/axeron/plugins/xyvonix_core" \
+  "/data/data/frb.axeron.manager/axeron/plugins/xyvonix_core"; do
+  if [ -x "$root/bin/xyvonix_cli.sh" ]; then
+    exec "$root/bin/xyvonix_cli.sh" "$@"
+  fi
+done
+
+for base in /data/user_de/0/*/axeron/plugins/xyvonix_core /data/user/0/*/axeron/plugins/xyvonix_core /data/data/*/axeron/plugins/xyvonix_core; do
+  if [ -x "$base/bin/xyvonix_cli.sh" ]; then
+    exec "$base/bin/xyvonix_cli.sh" "$@"
+  fi
+done
+
+exit 127

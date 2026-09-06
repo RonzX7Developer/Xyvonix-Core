@@ -1,0 +1,9 @@
+id=xyvonix_core
+name=Xyvonix Core
+version=3.0
+versionCode=300
+author=RonzX7 Developer
+description=Unified performance, network, gaming, background-app and diagnostics toolkit for AxManager.
+axeronPlugin=>=10000
+banner=banner.png
+webui=true

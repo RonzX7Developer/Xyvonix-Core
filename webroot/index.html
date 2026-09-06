@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#07080c">
+<title>Xyvonix Core v3.0</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app">
+<header class="topbar">
+  <div class="brand">
+    <img src="banner.png" class="brand-logo" alt="">
+    <div><div class="brand-name">Xyvonix Core</div><div class="brand-sub">RonzX7 Developer</div></div>
+  </div>
+  <div id="bridgeBadge" class="status-pill">CONNECTING</div>
+</header>
+
+<main class="content">
+<section id="home" class="view active">
+  <div class="hero">
+    <div class="hero-top">
+      <img src="banner.png" class="hero-logo" alt="Xyvonix Core">
+      <span class="eyebrow">AXMANAGER • NON-ROOT</span>
+      <h1>System control, rebuilt.</h1>
+      <p>Performance, network, DNS, gaming and diagnostics in one Xyvonix Core interface.</p>
+    </div>
+    <div class="hero-tags">
+      <span class="tag"><i data-icon="bolt"></i>Performance</span>
+      <span class="tag"><i data-icon="wifi"></i>Network</span>
+      <span class="tag"><i data-icon="target"></i>Gaming</span>
+      <span class="tag"><i data-icon="shield"></i>Safety</span>
+    </div>
+  </div>
+
+  <div class="telemetry card">
+    <div class="tele-head">
+      <div><span class="eyebrow">LIVE TELEMETRY</span><div id="latencyText" class="big-num">-- ms</div><span class="muted">connection latency</span></div>
+      <div class="live"><i></i> REAL-TIME</div>
+    </div>
+    <canvas id="latencyGraph" height="90"></canvas>
+    <div class="metric-grid">
+      <div><span>PROFILE</span><b id="mProfile">—</b></div>
+      <div><span>DEVICE</span><b id="mDevice">—</b></div>
+      <div><span>RAM</span><b id="mRam">—</b></div>
+      <div><span>REFRESH</span><b id="mHz">—</b></div>
+    </div>
+  </div>
+
+  <div class="section-title"><span>ENGINE PROFILES</span></div>
+  <div class="profile-grid">
+    <button class="profile-card" data-profile="performance"><span class="accent-bar"></span><span class="p-icon"><i data-icon="bolt"></i></span><span class="p-info"><b>Performance</b><small>Fast response & game-ready scheduling</small></span><em>ULTRA</em></button>
+    <button class="profile-card active" data-profile="balanced"><span class="accent-bar"></span><span class="p-icon"><i data-icon="diamond"></i></span><span class="p-info"><b>Balanced</b><small>Daily stability with measured tuning</small></span><em>SMART</em></button>
+    <button class="profile-card" data-profile="battery"><span class="accent-bar"></span><span class="p-icon"><i data-icon="battery"></i></span><span class="p-info"><b>Battery</b><small>Lower power and background pressure</small></span><em>ECO</em></button>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><div><span class="eyebrow">QUICK CONTROL</span><h2>System tools</h2></div><button class="ghost" id="refreshBtn">Refresh</button></div>
+    <div class="tool-grid">
+      <button class="tool" id="memoryBtn"><span><i data-icon="chip"></i></span><b>Memory</b><small>Activity optimization</small></button>
+      <button class="tool" id="trimBtn"><span><i data-icon="refresh"></i></span><b>Cache</b><small>Trim app caches</small></button>
+      <button class="tool" id="fstrimBtn"><span><i data-icon="storage"></i></span><b>Storage</b><small>Request fstrim</small></button>
+      <button class="tool primary" id="optimizeBtn"><span><i data-icon="rocket"></i></span><b>Auto Optimize</b><small>Safe combined profile</small></button>
+      <button class="tool danger-tool" id="closeBgBtn"><span><i data-icon="apps_off"></i></span><b>Close Apps</b><small>Stop unused background apps</small></button>
+    </div>
+  </div>
+</section>
+
+<section id="network" class="view">
+  <div class="page-head"><span class="eyebrow">NETWORK</span><h1>DNS & connection lab</h1><p>Native Android Private DNS plus lightweight network diagnostics.</p></div>
+
+  <div class="card">
+    <div class="card-head"><div><span class="eyebrow">PRIVATE DNS</span><h2>Choose provider</h2></div><span id="dnsCurrent" class="badge">—</span></div>
+    <div class="dns-grid">
+      <button class="dns-card" data-dns="auto"><i class="dns-check" data-icon="check"></i><b>Automatic</b><small>Android opportunistic</small></button>
+      <button class="dns-card" data-dns="off"><i class="dns-check" data-icon="check"></i><b>Off</b><small>System default</small></button>
+      <button class="dns-card" data-host="dns.google"><i class="dns-check" data-icon="check"></i><b>Google</b><small>dns.google</small></button>
+      <button class="dns-card" data-host="one.one.one.one"><i class="dns-check" data-icon="check"></i><b>Cloudflare</b><small>one.one.one.one</small></button>
+      <button class="dns-card" data-host="dns.quad9.net"><i class="dns-check" data-icon="check"></i><b>Quad9</b><small>dns.quad9.net</small></button>
+      <button class="dns-card" data-host="dns.adguard-dns.com"><i class="dns-check" data-icon="check"></i><b>AdGuard</b><small>dns.adguard-dns.com</small></button>
+    </div>
+    <div class="custom-dns">
+      <input id="customDns" placeholder="custom DNS hostname" autocomplete="off" spellcheck="false">
+      <button id="setCustomDns" class="primary-btn">Apply</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><div><span class="eyebrow">NETWORK TEST</span><h2>Speed test</h2></div><span id="testState" class="badge">READY</span></div>
+    <div class="speed-ring" id="speedRing"><div><strong id="speedValue">0.0</strong><span>Mbps</span></div></div>
+    <div class="test-metrics"><div><span>LATENCY</span><b id="testLatency">—</b><small>ms</small></div><div><span>DOWNLOAD</span><b id="testDownload">—</b><small>Mbps</small></div><div><span>DNS</span><b id="testDns">—</b><small>current</small></div></div>
+    <button id="speedBtn" class="primary-btn full">Run network test</button>
+    <p class="hint">The test downloads a small sample from Cloudflare and may consume several MB of data.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><div><span class="eyebrow">TUNING</span><h2>Connection controls</h2></div></div>
+    <div class="setting">
+      <div><b>Network optimization</b><small>Wi-Fi suspend tuning, watchdog and network polling.</small></div>
+      <button class="toggle" id="networkToggle"></button>
+    </div>
+    <div class="setting">
+      <div><b>Wi-Fi low-latency mode</b><small>Uses Android's exposed Wi-Fi command when available.</small></div>
+      <button class="toggle" id="wifiLatencyToggle"></button>
+    </div>
+  </div>
+</section>
+
+<section id="tuning" class="view">
+  <div class="page-head"><span class="eyebrow">TUNING</span><h1>Graphics & device controls</h1><p>Runtime-adaptive switches. Unsupported controls are skipped cleanly.</p></div>
+
+  <div class="card">
+    <div class="setting"><div><b>Render performance hints</b><small>SurfaceFlinger, HWUI and RenderEngine hints.</small></div><button class="toggle" id="renderToggle"></button></div>
+    <div class="setting"><div><b>Advanced visual blur</b><small>Attempts Android background-blur capability.</small></div><button class="toggle" id="blurToggle"></button></div>
+    <div class="setting"><div><b>High refresh rate</b><small>Uses the highest refresh mode reported by the display.</small></div><button class="toggle" id="refreshToggle"></button></div>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><div><span class="eyebrow">BACKGROUND</span><h2>App manager</h2></div></div>
+    <p class="hint" style="margin-top:0">Force-stops backgrounded apps that aren't the current app, a tracked game, or on your keep-alive list below.</p>
+    <button id="closeBgBtn2" class="primary-btn full"><i data-icon="apps_off"></i>&nbsp; Close background apps</button>
+    <div class="custom-dns" style="margin-top:14px"><input id="ignorePkg" placeholder="com.example.app to always keep" autocomplete="off" spellcheck="false"><button id="addIgnore" class="primary-btn">Add</button></div>
+    <div id="ignoreList" class="game-list"></div>
+  </div>
+
+  <div class="card device-card">
+    <div class="card-head"><div><span class="eyebrow">DEVICE PROFILE</span><h2>Compatibility</h2></div><span class="badge" id="compatBadge">DETECTING</span></div>
+    <div class="device-grid">
+      <div><span>MODEL</span><b id="dModel">—</b></div><div><span>ANDROID</span><b id="dAndroid">—</b></div>
+      <div><span>HYPEROS</span><b id="dHyper">—</b></div><div><span>SoC</span><b id="dSoc">—</b></div>
+      <div><span>RAM</span><b id="dRam">—</b></div><div><span>BATTERY</span><b id="dBattery">—</b></div>
+      <div><span>KERNEL</span><b id="dKernel">—</b></div><div><span>CPU GOVERNOR</span><b id="dGov">—</b></div>
+      <div><span>THERMAL</span><b id="dThermal">—</b></div><div><span>STORAGE FREE</span><b id="dStorage">—</b></div>
+    </div>
+  </div>
+
+  <div class="card safety">
+    <span class="shield"><i data-icon="shield"></i></span><div><b>Safety boundary</b><p>Xyvonix Core does not bypass SELinux, disable thermal protection, or ship root-only binaries. It uses AxManager's granted authority and falls back when Android blocks a control.</p></div>
+  </div>
+</section>
+
+<section id="gaming" class="view">
+  <div class="page-head"><span class="eyebrow">GAMING</span><h1>Game accelerator</h1><p>Package discovery, live detection, ART compilation and AxManager app optimization.</p></div>
+
+  <div class="card">
+    <div class="card-head"><div><span class="eyebrow">DETECTION</span><h2>Game auto-detect</h2></div><span id="gameActiveBadge" class="badge">IDLE</span></div>
+    <div class="setting">
+      <div><b>Currently in foreground</b><small id="foregroundPkg">—</small></div>
+      <span class="mini-icon"><i data-icon="target"></i></span>
+    </div>
+    <div class="setting">
+      <div><b>Auto Game Mode</b><small>Switch to Performance automatically when a tracked game opens, then restore your previous profile when it closes.</small></div>
+      <button class="toggle" id="autoGameToggle"></button>
+    </div>
+    <p class="hint">Detection runs while this Xyvonix Core WebUI session is open.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><div><span class="eyebrow">GAME LIST</span><h2>Manage packages</h2></div><button id="discoverBtn" class="ghost">Discover</button></div>
+    <div class="custom-dns"><input id="gamePkg" placeholder="com.example.game" autocomplete="off" spellcheck="false"><button id="addGame" class="primary-btn">Add</button></div>
+    <div id="gameList" class="game-list"></div>
+  </div>
+  <div class="card">
+    <div class="eyebrow">GAME PROFILE</div>
+    <div class="profile-note"><b>Performance + network focus</b><span>Apply Performance before launching demanding games, then reset to Balanced for daily use.</span></div>
+    <button id="gameProfileBtn" class="primary-btn full">Apply Gaming profile</button>
+  </div>
+</section>
+
+<section id="about" class="view">
+  <div class="page-head center"><span class="eyebrow">ABOUT</span><h1>Xyvonix Core</h1><p>Built by RonzX7 Developer.</p></div>
+  <div class="about card">
+    <div class="avatar-ring"><img src="developer.png" alt="RonzX7 Developer"></div>
+    <h2>RonzX7 Developer</h2><span class="badge">CREATOR • XYVONIX CORE</span>
+    <p>Xyvonix Core is a unified AxManager toolkit for modern Android devices, focused on adaptive performance, networking, gaming, background-app control and diagnostics.</p>
+    <div class="links"><a href="https://github.com/RonzX7Developer" target="_blank" rel="noopener">GitHub</a><a href="https://whatsapp.com/channel/0029VbD4EpjLY6dAztSRRn3Y" target="_blank" rel="noopener">WhatsApp Channel</a><a href="https://sociabuzz.com/ronzx7developer7" target="_blank" rel="noopener">Support</a></div>
+  </div>
+  <button id="resetBtn" class="danger full">Reset Xyvonix settings</button>
+</section>
+</main>
+
+<nav class="tabbar">
+  <button class="tab active" data-view="home"><i data-icon="home"></i><small>Home</small></button>
+  <button class="tab" data-view="network"><i data-icon="wifi"></i><small>Network</small></button>
+  <button class="tab" data-view="tuning"><i data-icon="sliders"></i><small>Tuning</small></button>
+  <button class="tab" data-view="gaming"><i data-icon="gamepad"></i><small>Gaming</small></button>
+  <button class="tab" data-view="about"><i data-icon="info"></i><small>About</small></button>
+</nav>
+<div id="toast"></div>
+<script src="icons.js"></script>
+<script src="app.js"></script>
+</div>
+</body>
+</html>
